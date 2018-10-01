@@ -34,7 +34,7 @@ natsuki = User.create({username: "natsuki", password: "ms.rooms", amount: 987987
 nkosi = User.create({username: "kos2kos", password: "niceass;)", amount: 987987 })
 
 userGarden1 = UserGarden.create({garden: swamp, user: natsuki})
-userGarden1 = UserGarden.create({garden: swamp, user: natsuki})
+userGarden1 = UserGarden.create({garden: sidewalk, user: natsuki})
 
 userGarden2 = UserGarden.create({garden: darkForrest, user: nkosi})
 
@@ -42,6 +42,12 @@ userGarden2 = UserGarden.create({garden: darkForrest, user: nkosi})
 
 gardenMushroom1 = GardenMushroom.create({garden_id: swamp.id, mushroom_id: shiitake.id})
 gardenMushroom2 = GardenMushroom.create({garden_id: swamp.id, mushroom_id: truffle.id})
+
+gardenMushroom7 = GardenMushroom.create({garden_id: sidewalk.id, mushroom_id: goomba.id})
+
+gardenMushroom8 = GardenMushroom.create({garden_id: sidewalk.id, mushroom_id: tamagotake.id})
+
+
 gardenMushroom5 = GardenMushroom.create({garden_id: log.id, mushroom_id: nameko.id})
 gardenMushroom3 = GardenMushroom.create({garden_id: log.id, mushroom_id: goomba.id})
 gardenMushroom4 = GardenMushroom.create({garden_id: log.id, mushroom_id: enokidake.id})
