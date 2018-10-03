@@ -15,7 +15,9 @@ class Garden extends Component {
         <h2> Garden: {displayedGarden.name} </h2>
         <h3> Mushrooms: {
             mushrooms.map(mshrm => {
-              return <MushroomCard mushroom={mshrm} key={Math.floor(Math.random() * Math.floor(7026842189))}/>
+              return <MushroomCard mushroom={mshrm}
+                 key={Math.floor(Math.random() * Math.floor(7026842189))}
+                 sellMushroom={this.props.sellMushroom}/>
           })
         }</h3>
       </div>

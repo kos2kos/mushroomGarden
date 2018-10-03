@@ -20,4 +20,11 @@ class GardensController < ApplicationController
     render json: @garden
   end
 
+  def destroy
+    @garden = Garden.find(params[:id])
+    @mushroom = Mushroom.find(params[:mushroom_id])
+    @garden.mushrooms.delete(@mushroom)
+    render json: @garden
+  end
+
 end

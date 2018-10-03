@@ -27,7 +27,6 @@ class GardenList extends Component {
   }
 
   increaseCounter = () => {
-    console.log("count Outside ifelse: ",this.state.counter);
     let count = parseInt(this.state.counter) + 1
     if(count > this.state.gardens.length - 1){
       count = 0
@@ -37,12 +36,8 @@ class GardenList extends Component {
     }
   }
 
-
-
   decreaseCounter = () =>{
     let count = parseInt(this.state.counter) - 1
-    console.log("mounted state", this.state.mounted);
-    console.log("garden length", this.state.counter);
     if(count < 0){
       count = this.state.mushrooms.length - 1
       this.setState({counter: count})
@@ -56,6 +51,10 @@ class GardenList extends Component {
   }
 
   showMushrooms = () => {
+    console.log("state is:   ",this.state);
+    console.log("the garden is: ", this.state.gardens[this.state.counter]);
+    console.log("the counter is this: ", this.state.counter);
+
     if (this.state.counter != 0 || this.state.mounted){
       return this.state.gardens[this.state.counter].mushrooms
     }
@@ -97,15 +96,44 @@ class GardenList extends Component {
     }
   }
 
+  sellMushroom = (mushroom) => {
+
+    let counter = this.state.counter
+    let id = this.state.gardens[counter].id
+    let garden = this.state.gardens[counter]
+      fetch(`http://localhost:3000/gardens/${id}`,{
+        method: 'DELETE',
+        body: JSON.stringify(
+          {
+            mushroom_id: mushroom.id,
+            garden: garden
+          }
+        ),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(newGarden => {
+        console.log(newGarden);
+        this.findAndReplace(newGarden)
+      })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log("hit update");
+  }
+
   render(){
+    console.log("gardens",this.state.gardens);
     const {counter} = this.state
-    console.log("this is the state! ", this.state);
     return(
       <div>
         <User amount={0}/>
 
         <h2>GardenList</h2>
-        {this.state.gardens.length === 0 || this.state.mushrooms.length === 0 ? null : <Garden key={Math.floor(Math.random() * Math.floor(7026842189)) } displayedGarden={this.showGarden()} mushrooms={this.showMushrooms()}/>}
+        {this.state.gardens.length === 0 || this.state.mushrooms.length === 0 ? null : <Garden key={Math.floor(Math.random() * Math.floor(7026842189)) } displayedGarden={this.showGarden()} mushrooms={this.showMushrooms()}
+        sellMushroom={this.sellMushroom}/>}
         <button onClick={this.decreaseCounter}> Previous</button>
         <button onClick={this.increaseCounter}> Next</button>
         <Menu id={1} addToGarden={this.addToGarden}/>
@@ -113,4 +141,6 @@ class GardenList extends Component {
     )
   }
 }
+
+
 export default GardenList

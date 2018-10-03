@@ -7,6 +7,7 @@ class MushroomCard extends Component{
       <div>
         Mushrooms
         {"  " + this.props.mushroom.name}
+        <button onClick={() => this.props.sellMushroom(this.props.mushroom)}>Salvage {"  ",this.props.mushroom.name}</button>
       </div>
     )
   }
