@@ -10,6 +10,11 @@
 
 .mushroom-card {
   position: absolute;
+  transition: 0.4s
+}
+
+.mushroom-card:hover {
+  transform: scale(1.15);
 }
 
 .mushroom-card button {
@@ -32,12 +37,13 @@
 .mushroom-card img {
   width: 80px;
   height: 90px;
-  animation: wiggle 1s linear infinite alternate;
+  animation: wiggle 1s linear infinite;
 }
 
 @keyframes wiggle {
   0% { transform: rotate(-15deg); }
-  100% {transform: rotate(15deg); }
+  50% { transform: rotate(15deg); }
+  100% {transform: rotate(-15deg); }
 }
 
 @keyframes wiggleMore {
@@ -48,7 +54,8 @@
 }
 
 @keyframes bounce {
-  0% { transform: translateY(0) }
-  70%  { transform: translateY(-15px) }
-  100% { transform: translateY(0); }
+  0% { transform: scaleY(1) }
+  50%  { transform: scaleY(0.7) translateY(20px); }
+  70% { transform: scaleY(1) translateY(-15px);}
+  100% { transform: scaleY(1); }
 }
