@@ -78,8 +78,9 @@ class GardenList extends Component {
 
     let counter = this.state.counter
     let garden = this.state.gardens[counter].mushrooms
+    let id = this.state.gardens[counter].id
     if (garden.length  < 125 ){
-      fetch("http://localhost:3000/gardens/4",{
+      fetch(`http://localhost:3000/gardens/${id}`,{
         method: 'PATCH',
         body: JSON.stringify(
           {mushrooms: [...garden, mushroom]}
