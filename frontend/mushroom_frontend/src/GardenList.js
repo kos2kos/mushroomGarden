@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Garden from './Garden'
+import Menu from './Menu'
+import User from './User'
 
 class GardenList extends Component {
   constructor() {
@@ -35,6 +37,8 @@ class GardenList extends Component {
     }
   }
 
+
+
   decreaseCounter = () =>{
     let count = parseInt(this.state.counter) - 1
     console.log("mounted state", this.state.mounted);
@@ -48,7 +52,6 @@ class GardenList extends Component {
   }
 
   showGarden = () => {
-    console.log(this.state.gardens[this.state.counter]);
     return this.state.gardens[this.state.counter]
   }
 
@@ -59,16 +62,52 @@ class GardenList extends Component {
     return this.state.mushrooms
   }
 
+  findAndReplace = (newGarden) => {
+    console.log("New Garden b4 State: ", newGarden);
+    let filterGarden = this.state.gardens.map(garden => {
+      if (garden.id === newGarden.id){
+        return newGarden
+      } else {
+        return garden
+      }
+    })
+    this.setState({gardens: filterGarden})
+  }
+
+  addToGarden = (mushroom) => {
+
+    let counter = this.state.counter
+    let garden = this.state.gardens[counter].mushrooms
+    if (garden.length  < 125 ){
+      fetch("http://localhost:3000/gardens/4",{
+        method: 'PATCH',
+        body: JSON.stringify(
+          {mushrooms: [...garden, mushroom]}
+        ),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(garden => {
+        console.log(garden);
+        this.findAndReplace(garden)
+      })
+    }
+  }
+
   render(){
-    console.log(this.showMushrooms());
     const {counter} = this.state
+    console.log("this is the state! ", this.state);
     return(
       <div>
-        <h1>GardenList</h1>
-        {this.state.gardens.length === 0 || this.state.mushrooms.length === 0 ? null : <Garden displayedGarden={this.showGarden()} mushrooms={this.showMushrooms()}/>}
+        <User amount={0}/>
+
+        <h2>GardenList</h2>
+        {this.state.gardens.length === 0 || this.state.mushrooms.length === 0 ? null : <Garden key={Math.floor(Math.random() * Math.floor(7026842189)) } displayedGarden={this.showGarden()} mushrooms={this.showMushrooms()}/>}
         <button onClick={this.decreaseCounter}> Previous</button>
         <button onClick={this.increaseCounter}> Next</button>
-
+        <Menu id={1} addToGarden={this.addToGarden}/>
       </div>
     )
   }

@@ -1,3 +1,3 @@
 class MushroomSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :price, :image
 end
