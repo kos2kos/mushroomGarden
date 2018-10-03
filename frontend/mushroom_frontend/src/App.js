@@ -1,19 +1,117 @@
 import React, { Component } from 'react';
-import GardenList from './GardenList'
+import Garden from './Garden'
 import Menu from './Menu'
 import User from './User'
-
+import './App.css'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <GardenList />
-        <User />
+  constructor() {
+    super()
+    this.state = {
+      gardens: [],
+      mushrooms: [],
+      counter: 0,
+      mounted: false
+    }
+  }
 
+  componentDidMount() {
+    fetch("http://localhost:3000/users/1")
+      .then(res => res.json())
+      .then(allGardens =>{
+        this.setState({
+          gardens: allGardens.gardens,
+          mushrooms: allGardens.gardens[0].mushrooms,
+          mounted: true
+        })
+      })
+  }
+
+  increaseCounter = () => {
+    console.log("count Outside ifelse: ",this.state.counter);
+    let count = parseInt(this.state.counter) + 1
+    if(count > this.state.gardens.length - 1){
+      count = 0
+      this.setState({counter: count})
+    } else{
+      this.setState({counter: count})
+    }
+  }
+
+
+
+  decreaseCounter = () =>{
+    let count = parseInt(this.state.counter) - 1
+    console.log("mounted state", this.state.mounted);
+    console.log("garden length", this.state.counter);
+    if(count < 0){
+      count = this.state.mushrooms.length - 1
+      this.setState({counter: count})
+    } else{
+      this.setState({counter: count})
+    }
+  }
+
+  showGarden = () => {
+    return this.state.gardens[this.state.counter]
+  }
+
+  showMushrooms = () => {
+    if (this.state.counter != 0 || this.state.mounted){
+      return this.state.gardens[this.state.counter].mushrooms
+    }
+    return this.state.mushrooms
+  }
+
+  findAndReplace = (newGarden) => {
+    console.log("New Garden b4 State: ", newGarden);
+    let filterGarden = this.state.gardens.map(garden => {
+      if (garden.id === newGarden.id){
+        return newGarden
+      } else {
+        return garden
+      }
+    })
+    this.setState({gardens: filterGarden})
+  }
+
+  addToGarden = (mushroom) => {
+
+    let counter = this.state.counter
+    let garden = this.state.gardens[counter].mushrooms
+    if (garden.length  < 125 ){
+      fetch("http://localhost:3000/gardens/4",{
+        method: 'PATCH',
+        body: JSON.stringify(
+          {mushrooms: [...garden, mushroom]}
+        ),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(garden => {
+        console.log(garden);
+        this.findAndReplace(garden)
+      })
+    }
+  }
+
+  render(){
+    const {counter} = this.state
+    console.log("this is the state! ", this.state);
+    return(
+      <div className='App'>
+        <User amount={0}/>
+
+        <h2>GardenList</h2>
+        {this.state.gardens.length === 0 || this.state.mushrooms.length === 0 ? null : <Garden key={Math.floor(Math.random() * Math.floor(7026842189)) } displayedGarden={this.showGarden()} mushrooms={this.showMushrooms()}/>}
+        <button className="button button5" onClick={this.decreaseCounter}> Previous</button>
+        <button className="button button5" onClick={this.increaseCounter}> Next</button>
+
+        <Menu id={1} addToGarden={this.addToGarden}/>
       </div>
-    );
+    )
   }
 }
-
-export default App;
+export default App

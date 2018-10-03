@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './User.css'
 
 class User extends Component {
   constructor() {
@@ -19,7 +20,7 @@ class User extends Component {
   }
   render(){
   return(
-      <div>
+      <div className='user-info-section'>
         <h2>{"Username: " + this.state.username}</h2>
         <h2>{"$$$:  " + this.state.amount}</h2>
       </div>
