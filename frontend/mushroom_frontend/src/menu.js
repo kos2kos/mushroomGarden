@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MenuCard from './MenuCard'
+import './menu.css'
 
 class Menu extends Component {
   constructor() {
@@ -20,12 +21,13 @@ class Menu extends Component {
 
   render(){
     return(
-      <div>
+      <div className='side-bar'>
         <h1>Menu Purchase Below</h1>
-
-        {this.state.mushrooms.map(mshroom =>{
-          return <MenuCard key={mshroom.id} mushroom={mshroom} addToGarden={this.props.addToGarden}/>
-        })}
+        <div className='mushroom-list'>
+          {this.state.mushrooms.map(mshroom =>{
+            return <MenuCard key={mshroom.id} mushroom={mshroom} addToGarden={this.props.addToGarden}/>
+          })}
+      </div>
       </div>
     )
   }

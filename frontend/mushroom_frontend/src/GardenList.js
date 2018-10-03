@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Garden from './Garden'
 import Menu from './Menu'
 import User from './User'
+import './App.css'
+
 
 class GardenList extends Component {
   constructor() {
@@ -128,7 +130,7 @@ class GardenList extends Component {
     console.log("gardens",this.state.gardens);
     const {counter} = this.state
     return(
-      <div>
+      <div  className='App'>
         <User amount={0}/>
 
         <h2>GardenList</h2>

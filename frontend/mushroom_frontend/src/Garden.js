@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MushroomCard from './MushroomCard'
+import './Garden.css'
 
 
 class Garden extends Component {
@@ -11,15 +12,17 @@ class Garden extends Component {
   render(){
     const  { displayedGarden, mushrooms } = this.props
     return(
-      <div>
+      <div className='garden-section'>
         <h2> Garden: {displayedGarden.name} </h2>
-        <h3> Mushrooms: {
+        <div className='garden'>
+          {
             mushrooms.map(mshrm => {
               return <MushroomCard mushroom={mshrm}
-                 key={Math.floor(Math.random() * Math.floor(7026842189))}
+                 key={mshrm.id}
                  sellMushroom={this.props.sellMushroom}/>
-          })
-        }</h3>
+            })
+          }
+        </div>
       </div>
     )
   }

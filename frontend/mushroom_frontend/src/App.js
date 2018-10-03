@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import GardenList from './GardenList'
-import Menu from './Menu'
 import User from './User'
 
 

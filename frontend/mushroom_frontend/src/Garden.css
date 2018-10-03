@@ -1,0 +1,54 @@
+.garden {
+  /* border: 1px solid blue; */
+  background-color: darkgreen;
+  margin: 30px;
+  font-family: 'Lato', sans-serif;
+  width: 900px;
+  height: 600px;
+  position: relative;
+}
+
+.mushroom-card {
+  position: absolute;
+}
+
+.mushroom-card button {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  transition: 0.5s;
+  font-size: 15px;
+}
+
+.mushroom-card:hover button {
+  display: block;
+}
+
+.mushroom-card img {
+  width: 80px;
+  height: 90px;
+  animation: wiggle 1s linear infinite alternate;
+}
+
+@keyframes wiggle {
+  0% { transform: rotate(-15deg); }
+  100% {transform: rotate(15deg); }
+}
+
+@keyframes wiggleMore {
+  0% { transform: rotate(-35deg); }
+  25% { transform: rotate(15deg); }
+  75% { transform: rotate(-15deg); }
+  100% {transform: rotate(35deg); }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0) }
+  70%  { transform: translateY(-15px) }
+  100% { transform: translateY(0); }
+}
