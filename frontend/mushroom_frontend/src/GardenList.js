@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Garden from './Garden'
 import Menu from './Menu'
 import User from './User'
-import './App.css'
-
 
 class GardenList extends Component {
   constructor() {
@@ -56,7 +54,6 @@ class GardenList extends Component {
     console.log("state is:   ",this.state);
     console.log("the garden is: ", this.state.gardens[this.state.counter]);
     console.log("the counter is this: ", this.state.counter);
-
     if (this.state.counter != 0 || this.state.mounted){
       return this.state.gardens[this.state.counter].mushrooms
     }
@@ -80,6 +77,7 @@ class GardenList extends Component {
     let counter = this.state.counter
     let garden = this.state.gardens[counter].mushrooms
     let id = this.state.gardens[counter].id
+    this.props.gameLogicBuyMushroom(mushroom)
     if (garden.length  < 125 ){
       fetch(`http://localhost:3000/gardens/${id}`,{
         method: 'PATCH',
@@ -103,6 +101,9 @@ class GardenList extends Component {
     let counter = this.state.counter
     let id = this.state.gardens[counter].id
     let garden = this.state.gardens[counter]
+
+    this.props.gameLogicSellMushroom(mushroom)
+
       fetch(`http://localhost:3000/gardens/${id}`,{
         method: 'DELETE',
         body: JSON.stringify(
@@ -130,14 +131,14 @@ class GardenList extends Component {
     console.log("gardens",this.state.gardens);
     const {counter} = this.state
     return(
-      <div  className='App'>
-        <User amount={0}/>
+      <div>
+        <User user={this.props.user}/>
 
-        <h2>GardenList</h2>
         {this.state.gardens.length === 0 || this.state.mushrooms.length === 0 ? null : <Garden key={Math.floor(Math.random() * Math.floor(7026842189)) } displayedGarden={this.showGarden()} mushrooms={this.showMushrooms()}
-        sellMushroom={this.sellMushroom}/>}
-        <button onClick={this.decreaseCounter}> Previous</button>
-        <button onClick={this.increaseCounter}> Next</button>
+        sellMushroom={this.sellMushroom}
+        updateBank={this.props.updateBank}/>}
+        <button className="button button5" onClick={this.decreaseCounter}> Previous</button>
+        <button className="button button5" onClick={this.increaseCounter}> Next</button>
         <Menu id={1} addToGarden={this.addToGarden}/>
       </div>
     )

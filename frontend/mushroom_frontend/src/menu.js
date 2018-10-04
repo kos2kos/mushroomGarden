@@ -22,7 +22,7 @@ class Menu extends Component {
   render(){
     return(
       <div className='side-bar'>
-        <h1>Menu Purchase Below</h1>
+        <h1>Mushroom Store</h1>
         <div className='mushroom-list'>
           {this.state.mushrooms.map(mshroom =>{
             return <MenuCard key={mshroom.id} mushroom={mshroom} addToGarden={this.props.addToGarden}/>

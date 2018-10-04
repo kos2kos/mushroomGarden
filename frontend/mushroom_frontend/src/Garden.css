@@ -1,11 +1,18 @@
 .garden {
   /* border: 1px solid blue; */
-  background-color: darkgreen;
+  background-image: url("./sidewalk.png"), url("./dark_forrest4.png");
+  /* background-image: url("./dark_forrest4.png"), url("./dark_forrest4.png"); */
+  background-repeat: no-repeat, repeat;
+  background-color: #167F34;
   margin: 30px;
   font-family: 'Lato', sans-serif;
   width: 900px;
   height: 600px;
   position: relative;
+}
+
+.garden-section {
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .mushroom-card {
