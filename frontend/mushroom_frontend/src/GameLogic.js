@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import GardenList from './GardenList'
-import Menu from './Menu'
+import Menu from './menu.js'
 import User from './User'
 
 class GameLogic extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Garden from './Garden'
-import Menu from './Menu'
+import Menu from './menu'
 import User from './User'
 
 class GardenList extends Component {
